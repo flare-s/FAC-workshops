@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 2 | Promise practice</title>
+  </head>
+  <body>
+    <h1>Open the console</h1>
+    <script>
+      // write your code here
+      const fetchContent = (link) => {
+        return fetch(link)
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } 
+            throw new Error(`Something went wrong: code ${response.status}`);
+          });
+      }
+
+      fetchContent("https://pokeapi.co/api/v2/pokemon/pikachu")
+        .then(pokemon => fetchContent(pokemon.species.url))
+        .then(species => fetchContent(species.shape.url))
+        .then(shape => console.log(shape))
+    </script>
+  </body>
+</html>

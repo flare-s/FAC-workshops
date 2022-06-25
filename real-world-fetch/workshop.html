@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real world fetch</title>
+  </head>
+  <body>
+    
+    
+
+    <main>
+
+      <!-- <form action="">
+      <input type="text" name="username" />
+      <input type="email" name="email" />
+      <button type="submit">Submit</button>
+    </form> -->
+      <h1>Find you favourite pokemon</h1>
+      <form action="">
+        <input type="search" name="search-pokimon" placeholder="pokemon name" required>
+        <button type="submit">search</button>
+      </form>
+      <section>
+        <div class="pokemon"></div>
+        <div class="error" hidden="true"></div>
+      </section>
+    </main>
+
+    
+
+    <script>
+      //Challenge 1
+      // fetch("https://echo.oliverjam.workers.dev/status/404")
+      //   .then((data) => {
+      //      if (data.ok) {
+      //        return data.json();
+      //      }
+      //      const error =  Error(`There was an error: ${data.status}`);
+      //      throw error;
+      //   }) 
+      //   .catch((error) => console.log(error));
+
+      // Challenge 2
+      // let data = {
+      //       name: "Abdullah",
+      //       bootcamp: "Founders And Coders"
+      //     }
+      //   fetch("https://echo.oliverjam.workers.dev/json", {
+      //     method: "POST",
+      //     headers: {
+      //       "content-type": "application/json",
+      //     },
+      //     body: JSON.stringify(data)
+      //   })
+      //   .then((response => {
+      //     if (response.ok) {
+      //       return response.json();
+      //     }
+      //     let error = new Error(response.status);
+      //     throw error;
+      //   }))
+      //   .then(data => console.log(data))
+      //   .catch(error => console.log(error));
+      
+      //Challenge 3
+        // let form = document.querySelector("form");
+        // form.addEventListener("submit", (event) => {
+        //   event.preventDefault();
+        //   let username = form.querySelector(`[type="text"]`).value;
+        //   let email = form.querySelector(`[type="email"]`).value;
+
+        //   fetch("https://echo.oliverjam.workers.dev/json", {
+        //     method: "POST",
+        //     headers: {
+        //       "content-type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //       username,
+        //       email
+        //     })
+        //   })
+        //   .then((response) => {
+        //     if (response.ok) {
+        //       return response.json();
+        //     }
+
+        //     throw new Error("Something went wrong: " + response.status );
+        //   })
+        //   .then((userInfo) => console.log(userInfo))
+        //   .catch((error) => console.log(error));
+
+        // });
+
+        //Challenge 4
+        // let form = document.querySelector("form");
+        // form.addEventListener("submit", (event) => {
+        //   event.preventDefault();
+        //   let formData = new FormData(form);
+        //   let data = Object.fromEntries(formData);
+        //   fetch("https://echo.oliverjam.workers.dev/json", {
+        //     method: "POST",
+        //     headers: {
+        //       "content-type": "application/json"
+        //     },
+        //     body: JSON.stringify(data)
+        //   })
+        //   .then((response) => {
+        //     if (!response.ok) {
+        //       throw new Error(response.status);
+        //     }
+        //     return response.json();
+        //   })
+        //   .then(data => console.log(data))
+        //   .catch(error => console.log(error))
+        //   // console.log(data);
+
+        // })
+
+        const fetchPokemon = (name) => {
+          return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+            .then(response => {
+              if(response.ok) {
+                return response.json();
+              }
+              throw new Error(`We couldn't find the requested pokemon.`);
+            })
+        }
+
+        let form = document.querySelector("form");
+        let pokemonContent = document.querySelector(".pokemon");
+        let errorMessage =document.querySelector(".error")
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          let searchValue = form.querySelector(`[type="search"]`).value.toLowerCase();
+          fetchPokemon(searchValue)
+          .then(pokemon => {
+            errorMessage.setAttribute("hidden", "true");
+            pokemonContent.removeAttribute("hidden");
+            pokemonContent.innerHTML = `
+              <div>${pokemon.name}</div>
+              <img src=${pokemon.sprites.front_default} alt=${pokemon.name}/>
+            `;
+          })
+          .catch(error => {
+            pokemonContent.setAttribute("hidden", "true");
+            errorMessage.removeAttribute("hidden");
+            errorMessage.textContent = error;
+          })
+        })
+
+    </script>
+  </body>
+</html>

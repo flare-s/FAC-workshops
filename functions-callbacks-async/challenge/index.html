@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge | Functions and asynchronous JavaScript</title>
+  </head>
+  <body>
+    <h1>Open the console</h1>
+    <script>
+      let lights = [
+        "green",
+        "amber",
+        "red",
+        "amber",
+        "green",
+        "finished"
+      ];
+
+      let count = 0;
+      
+      const light = (el, callback) => {
+        window.setTimeout(() => {
+          if (el === "finished") {
+            return console.log(el);
+          }
+          console.log(lights[count]);
+          count++;
+          callback(lights[count], light);
+        }, 1000);
+      }
+
+      light(lights[0], light);
+
+  
+
+    </script>
+  </body>
+</html>
+
+

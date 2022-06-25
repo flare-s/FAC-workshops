@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Fetch & Promises</title>
+  </head>
+  <body>
+    <h1>Open the console</h1>
+    <script>
+      // challenge 1
+      let fetchedRequest = fetch("https://pokeapi.co/api/v2/pokemon/pikachu");
+      console.log(fetchedRequest);
+
+      //challenge 2
+
+      fetchedRequest
+        .then((data) => console.log(data));
+
+      //challenge 3
+      fetchedRequest
+        .then((data) => data.json() )
+        .then((data) => console.log(data));
+      //challenge 4
+      let wrongRequest = fetch();
+      wrongRequest
+        .catch((error) => console.log(error));
+
+      // workshop part-1
+      const getUser = (user) => {
+        return fetch(`https://api.github.com/users/${user}`)
+                .then((data) => data.json());
+      }
+
+      const getRepos = (user) => {
+        return fetch(user['repos_url'])
+                .then((repos) => repos.json());
+      }
+
+      let getFlare = getUser('flare-s');
+      getFlare
+        .then((user) => console.log(user))
+        .catch((error) => console.log(error));
+
+      // workshop part-2
+      getFlare
+        .then((user) => getRepos(user))
+        .then((repos) => console.log(repos))
+        .catch((error) => console.log(error));
+
+      // workshop part-3
+      let flare = getUser('flare-s');
+      let oli = getUser('oliverjam');
+
+
+      Promise.all([flare, oli])
+        .then((users) => console.log(users))
+        .catch((error) => console.log(error));
+
+      Promise.all([flare, oli])
+        .then((users) => {
+          let arr = [];
+          users.forEach(user => {
+             let userRepo = getRepos(user);
+             userRepo.then((user) => arr.push(user))
+          });
+          return arr;
+        })
+        .then((repos) => console.log(repos))
+        .catch((error) => console.log(error));
+
+
+
+    </script>
+  </body>
+</html>
