@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Testing</title>
+  </head>
+  <body>
+    <h1>Open the console</h1>
+
+    <script>
+      // the function we're testing
+      function square(x) {
+        return x * x;
+      }
+
+      const equal = (expected, actual, message) => {
+        if (expected !== actual) {
+          const defaultMessage = `Expected ${expected} but found ${actual}}`
+          console.error(`Fail: ${message || defaultMessage}`);
+        } else{
+          const defaultMessage = `Expected ${expected} and found ${actual}}`
+          console.info(`Success: ${message || defaultMessage}`);
+        }
+      }
+
+      const notEqual = (expected, actual) => {
+        if (expected !== actual) {
+          console.info(`Pass: Expected ${expected} and found ${actual}`);
+        } else{
+          console.info(`Fail: Expected ${expected} to be anything other than ${actual}`);
+        }
+      }
+
+      const test = (description, testFn) => {
+        console.group(description);
+        testFn();
+        console.groupEnd();
+      }
+
+
+
+      const res = square(6);
+
+      const expected = 12;
+
+      if (expected !== res) {
+        console.error(`Expected the result of square(6) to be 36 but found ${res}`);
+      }
+
+      equal(square(3.5), 5)
+      equal(square(3.5), 12.25)
+
+      notEqual(square(4), 13)
+      notEqual(square(3), 9)
+
+      test("square(4) should return 16", () => {
+        equal(square(4), 12, "square(4) should return 16")
+      })
+
+      test("square(3.5) should return 12.25", () => {
+        equal(square(3.5), 12.25)
+      })
+
+      test("square(4) should not return 16", () => {
+        equal(square(4), 16, "square(4) should return 16")
+      })
+    </script>
+  </body>
+</html>
