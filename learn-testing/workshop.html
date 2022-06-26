@@ -39,21 +39,23 @@
       }
 
 
-
+      // Challenge 1
       const res = square(6);
 
-      const expected = 12;
+      const actual = 12;
 
-      if (expected !== res) {
-        console.error(`Expected the result of square(6) to be 36 but found ${res}`);
+      if (actual !== res) {
+        console.error(`Expected the result of square(6) to be 36 but found ${actual}`);
       }
 
+      // Challenge 2 & 3
       equal(square(3.5), 5)
       equal(square(3.5), 12.25)
 
       notEqual(square(4), 13)
       notEqual(square(3), 9)
 
+      // Challenge 4 & 5
       test("square(4) should return 16", () => {
         equal(square(4), 12, "square(4) should return 16")
       })
