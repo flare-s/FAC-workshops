@@ -45,3 +45,28 @@ const find = (array, callback) =>{
   }
   return undefined;
 }
+
+
+const reduce = (array, callback, accumulator) => {
+  let i = 0;
+  if (accumulator === undefined) {
+    accumulator = array[0];
+    i = 1;
+  }
+  for (; i < array.length; i++) {
+    accumulator = callback(accumulator, array[i]);
+  }
+  return accumulator;
+}
+
+const flat = (array, depth = 1) => {
+  let arr = [];
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i]) && depth > 0) {
+      arr = arr.concat(flat(array[i], depth - 1));
+    } else {
+      arr.push(array[i]);
+    }
+  }
+  return arr;
+}

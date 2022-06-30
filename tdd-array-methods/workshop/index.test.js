@@ -61,3 +61,30 @@ test("find() should return false if every element doesn't meet the condition pas
   const result = find([55, 49, 99], (x) => x > 100);
   equal(result, undefined);
 });
+
+test("reduce() should apply the callback for each element and use the return value as the new accumulator", () => {
+  const result = reduce([10, 30, 100], (acc, x) => acc + x, 10);
+  equal(result, 150);
+});
+
+test("reduce() should apply the callback for each element and use the first element in the array as the accumulator if it wasn't passed as an argument", () => {
+  const result = reduce([2, 4, 10], (acc, x) => acc * x);
+  equal(result, 80);
+});
+
+test("flat() should return an array with all the elements of the passed array in it, if there is'nt any depth specified nested arrays of one level will be flattened", () => {
+  const result = flat([2, 4, [10, [20]]]);
+  equal(result[0], 2);
+  equal(result[1], 4);
+  equal(result[2], 10);
+  equal(Array.isArray(result[3]), true);
+});
+
+test("flat() should return an array with all the elements of the passed array in it, if the depth is specified nested arrays within that range will be flattened", () => {
+  const result = flat([2, [4, [10, [15, 20]]]], 3);
+  equal(result[0], 2);
+  equal(result[1], 4);
+  equal(result[2], 10);
+  equal(result[3], 15);
+  equal(result[4], 20);
+});
