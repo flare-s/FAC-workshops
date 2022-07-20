@@ -1,0 +1,15 @@
+{
+  "name": "npm-intro",
+  "version": "1.0.0",
+  "description": "Learning about Node and npm",
+  "main": "index.js",
+  "scripts": {
+    "greet": "cowsay hello"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cowsay": "^1.5.0"
+  }
+}
