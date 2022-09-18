@@ -51,3 +51,13 @@ test("/users/Abdullah returns a greeting message to Abdullah", async () => {
   const body = await serverResponse.text();
   assert.match(body, /Welcome Abdullah!/);
 });
+
+test("http requests for undefined routes would return the message NoT found", async () => {
+  const app = server.listen(1000);
+  const serverResponse = await fetch("http://localhost:1000/rfml");
+  app.close();
+
+  assert.equal(serverResponse.status, 404);
+  const body = await serverResponse.text();
+  assert.match(body, /Not found/);
+});

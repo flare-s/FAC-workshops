@@ -31,4 +31,8 @@ server.get("/users/:name", (req, res) => {
   res.send(`<h1>Welcome Abdullah!</h1>`);
 });
 
+server.use((req, res) => {
+  res.status(404).send("<h1>Not found</h1>");
+});
+
 module.exports = server;
