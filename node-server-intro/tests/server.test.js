@@ -14,7 +14,7 @@ test("The request to the home route return the expected content", async () => {
   const serverResponse = await fetch("http://localhost:2000");
   const body = await serverResponse.text();
   app.close();
-  assert.equal(body, "hello");
+  assert.match(body, /Hello/);
 });
 
 test("The request to the uh-oh route return the expected status", async () => {
