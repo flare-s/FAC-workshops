@@ -10,9 +10,24 @@ test("The response status is successful", async () => {
 });
 
 test("The request to the home route return the expected content", async () => {
-  const app = server.listen(4000);
-  const serverResponse = await fetch("http://localhost:4000");
+  const app = server.listen(2000);
+  const serverResponse = await fetch("http://localhost:2000");
   const body = await serverResponse.text();
   app.close();
   assert.equal(body, "hello");
+});
+
+test("The request to the uh-oh route return the expected status", async () => {
+  const app = server.listen(2000);
+  const serverResponse = await fetch("http://localhost:2000/uh-oh");
+  app.close();
+  assert.equal(serverResponse.status, 500);
+});
+
+test("The request to the uh-oh route return the expected content", async () => {
+  const app = server.listen(2000);
+  const serverResponse = await fetch("http://localhost:2000/uh-oh");
+  const body = await serverResponse.text();
+  app.close();
+  assert.equal(body, "something went wrong");
 });
