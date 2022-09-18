@@ -41,3 +41,13 @@ test("/search returns message including keyword", async () => {
   const body = await response.text();
   assert.match(body, /You searched for bananas/);
 });
+
+test("/users/Abdullah returns a greeting message to Abdullah", async () => {
+  const app = server.listen(1000);
+  const serverResponse = await fetch("http://localhost:1000/users/Abdullah");
+  app.close();
+
+  assert.equal(serverResponse.status, 200);
+  const body = await serverResponse.text();
+  assert.match(body, /Welcome Abdullah!/);
+});

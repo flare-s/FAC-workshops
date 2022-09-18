@@ -26,4 +26,9 @@ server.get("/search", (req, res) => {
   res.send(`<p>You searched for ${keyword}</p>`);
 });
 
+server.get("/users/:name", (req, res) => {
+  const { name } = req.params;
+  res.send(`<h1>Welcome Abdullah!</h1>`);
+});
+
 module.exports = server;
