@@ -21,4 +21,9 @@ server.get("/uh-oh", (request, response) => {
   response.status(500).send("something went wrong");
 });
 
+server.get("/search", (req, res) => {
+  const keyword = req.query.keyword ? req.query.keyword : "Nothing";
+  res.send(`<p>You searched for ${keyword}</p>`);
+});
+
 module.exports = server;
