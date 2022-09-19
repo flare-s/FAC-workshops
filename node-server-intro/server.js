@@ -1,6 +1,7 @@
 const express = require("express");
 
 const server = express();
+const bodyParser = express.urlencoded();
 
 function logger(request, response, next) {
   console.log(request.method + " " + request.url);
@@ -41,6 +42,16 @@ server.get("/search", (req, res) => {
 server.get("/users/:name", (req, res) => {
   const { name } = req.params;
   res.send(`<h1>Welcome Abdullah!</h1>`);
+});
+
+server.post("/submit", bodyParser, (request, response) => {
+  const name = request.body.name;
+  response.redirect(`/submit/success?name=${name}`);
+});
+
+server.get("/submit/success", (req, res) => {
+  const name = req.query.name;
+  res.send(`<h1>Thanks for submiting, ${name}</h1>`);
 });
 
 server.use((req, res) => {
