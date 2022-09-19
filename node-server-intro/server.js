@@ -9,12 +9,17 @@ function logger(request, response, next) {
 
 server.use(logger);
 
+const staticHandler = express.static("public");
+
+server.use(staticHandler);
+
 server.get("/", (req, res) => {
   res.send(`
   <!doctype html>
   <html>
     <head>
       <meta charset="utf-8">
+      <link rel="stylesheet" href="/styles.css" />
       <title>Home</title>
     </head>
     <body>
