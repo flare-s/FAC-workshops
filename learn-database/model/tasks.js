@@ -7,8 +7,8 @@ const insert_task = db.prepare(
    RETURNING id, content, created_at, complete`
 );
 
-const createTask = (taskContent, complete) => {
-  insert_task.get(taskContent, complete);
+const createTask = (task) => {
+  insert_task.get(task);
 };
 
 // Ex of adding a task
