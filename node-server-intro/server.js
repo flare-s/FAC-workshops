@@ -41,7 +41,7 @@ server.get("/search", (req, res) => {
 
 server.get("/users/:name", (req, res) => {
   const { name } = req.params;
-  res.send(`<h1>Welcome Abdullah!</h1>`);
+  res.send(`<h1>Welcome ${name}!</h1>`);
 });
 
 server.post("/submit", bodyParser, (request, response) => {
