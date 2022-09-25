@@ -7,7 +7,12 @@ const insert_task = db.prepare(
 );
 
 const select_tasks = db.prepare(
-  `SELECT id, content, created_at, complete FROM tasks`
+  `SELECT 
+    id, 
+    content, 
+    TIME(created_at) as created_at, 
+    complete 
+  FROM tasks`
 );
 
 const listTasks = () => select_tasks.all();
