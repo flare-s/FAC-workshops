@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "seed": "node database/seed.js DB_FILE=db.sqlite"
+    "seed": "SET DB_FILE=db.sqlite & node database/seed.js"
   },
   "dependencies": {
     "better-sqlite3": "^7.6.2"

@@ -1,20 +1,24 @@
 const db = require("../database/db");
 
 const insert_task = db.prepare(
-  /*sql*/
   `INSERT INTO tasks (content, complete)
    VALUES ($content, $complete)
    RETURNING id, content, created_at, complete`
 );
+
+const select_tasks = db.prepare(
+  `SELECT id, content, created_at, complete FROM tasks`
+);
+
+const listTasks = () => select_tasks.all();
 
 const createTask = (task) => {
   insert_task.get(task);
 };
 
 // Ex of adding a task
-// createTask("Eat breakfast");
-// createTask("Go for a run");
-// const tasks = db.prepare("SELECT * FROM tasks").all();
-// console.log(tasks);
+createTask({ content: "Eat breakfast", complete: 1 });
+createTask({ content: "Go for a run", complete: 0 });
+console.log(listTasks());
 
-module.exports = { createTask };
+module.exports = { createTask, listTasks };
