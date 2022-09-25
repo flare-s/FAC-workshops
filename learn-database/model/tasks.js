@@ -9,9 +9,9 @@ const createTask = (taskContent) => {
 };
 
 // Ex of adding a task
-createTask("Eat breakfast");
-createTask("Go for a run");
-const tasks = db.prepare("SELECT * FROM tasks").all();
-console.log(tasks);
+// createTask("Eat breakfast");
+// createTask("Go for a run");
+// const tasks = db.prepare("SELECT * FROM tasks").all();
+// console.log(tasks);
 
 module.exports = { createTask };
