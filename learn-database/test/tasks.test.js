@@ -23,3 +23,13 @@ test("can create, remove & list tasks", () => {
   const tasks = model.selectTasks();
   assert.equal(tasks.length, 0);
 });
+
+// Check if a task can be updated
+test("can update a task", () => {
+  reset();
+
+  const task = model.insertTask({ content: "test task", complete: 0 });
+  const updated = model.editTask({ id: 1, content: "this is updated" });
+  assert.equal(updated.id, 1);
+  assert.equal(updated.content, "this is updated");
+});

@@ -22,11 +22,23 @@ const delete_task = db.prepare(
   `DELETE FROM tasks WHERE id = ?`
 );
 
+const edit_task = db.prepare(
+  /*sql*/
+  `
+  UPDATE tasks
+  SET content = $content
+  WHERE id = $id
+  RETURNING id, content, created_at, complete
+  `
+);
+
 const deleteTask = (id) => delete_task.run(id);
 
 const selectTasks = () => select_tasks.all();
 
 const insertTask = (task) => insert_task.get(task);
+
+const editTask = (task) => edit_task.get(task);
 
 // Ex of adding a task
 // insertTask({ content: "Eat breakfast", complete: 1 });
@@ -36,4 +48,4 @@ const insertTask = (task) => insert_task.get(task);
 
 // selectTasks();
 
-module.exports = { insertTask, selectTasks, deleteTask };
+module.exports = { insertTask, selectTasks, deleteTask, editTask };
