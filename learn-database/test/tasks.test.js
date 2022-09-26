@@ -33,3 +33,11 @@ test("can update a task", () => {
   assert.equal(updated.id, 1);
   assert.equal(updated.content, "this is updated");
 });
+
+test("can complete a task", () => {
+  reset();
+
+  const task = model.insertTask({ content: "test task", complete: 0 });
+  const updated = model.updateComplete(1);
+  assert.equal(updated.complete, 1);
+});

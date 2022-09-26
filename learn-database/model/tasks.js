@@ -32,6 +32,18 @@ const edit_task = db.prepare(
   `
 );
 
+const update_complete = db.prepare(
+  /*sql*/
+  `
+  UPDATE tasks
+  SET complete = NOT complete
+  WHERE id = ?
+  RETURNING id, content, created_at, complete
+  `
+);
+
+const updateComplete = (id) => update_complete.get(id);
+
 const deleteTask = (id) => delete_task.run(id);
 
 const selectTasks = () => select_tasks.all();
@@ -48,4 +60,10 @@ const editTask = (task) => edit_task.get(task);
 
 // selectTasks();
 
-module.exports = { insertTask, selectTasks, deleteTask, editTask };
+module.exports = {
+  insertTask,
+  selectTasks,
+  deleteTask,
+  editTask,
+  updateComplete,
+};
